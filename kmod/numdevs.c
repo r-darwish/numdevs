@@ -24,11 +24,8 @@ static int numdev_close(struct inode * i, struct file * f)
 
 static ssize_t numdev_read(struct file * f, char __user * buf, size_t len, loff_t * off)
 {
-    int i = 0;
     char to_write = f->f_inode->i_rdev - major + 1;
-    for (i = 0; i < len; i++) {
-        buf[i] = to_write;
-    }
+    memset(buf, to_write, len);
     return len;
 }
 
